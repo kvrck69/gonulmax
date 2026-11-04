@@ -54,6 +54,8 @@ Kullanıcı bilgisayarı olmadığını söyledi; npm/PyPI de bu ortamda engelli
 - `docs/` = `web/` kopyası (Pages /docs'tan sunar). `web/` veya çekirdek değişince: `node tools/build.mjs && rm -rf docs && cp -r web docs`, sonra push.
 - GitHub GraphQL kapalı; yalnızca REST (`gh api repos/...`).
 
+- 2026-11-04 14:55: Kullanıcı boş `kvrck69/gonulmax` deposunu açtı, `add_repo` ile oturuma eklendi, klon `/home/claude/gm-repo` (NOT: `/home/claude/gonulmax` proje klasörü, klonla karıştırma). Commit hazır (652c31d) ama `git push` 403: "Claude doesn't have GitHub access to kvrck69/gonulmax". ÇÖZÜM: kullanıcı Claude GitHub uygulamasını yüklemeli: https://github.com/apps/claude/installations/select_target (hesap: kvrck69, depo: gonulmax). Sonra: `cd /home/claude/gm-repo && git push -u origin main`, ardından Pages (main, /docs).
+
 ## SIRADAKİ ADIM
 0. (YUKARIDAKİ YAYIN DURUMU) depo → push → Pages → adresi test et (tarayıcıda aç, sw.js ve manifest 200 dönüyor mu).
 1. Yayınlama: kullanıcı bilgisayarsız. Seçenekler: (a) Artifact olarak yayınla (claude.ai sayfası), (b) GitHub Pages (kullanıcının GitHub deposu/izni gerekir), (c) Netlify/Cloudflare Pages'e telefondan yükleme.
