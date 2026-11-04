@@ -56,6 +56,8 @@ Kullanıcı bilgisayarı olmadığını söyledi; npm/PyPI de bu ortamda engelli
 
 - 2026-11-04 14:55: Kullanıcı boş `kvrck69/gonulmax` deposunu açtı, `add_repo` ile oturuma eklendi, klon `/home/claude/gm-repo` (NOT: `/home/claude/gonulmax` proje klasörü, klonla karıştırma). Commit hazır (652c31d) ama `git push` 403: "Claude doesn't have GitHub access to kvrck69/gonulmax". ÇÖZÜM: kullanıcı Claude GitHub uygulamasını yüklemeli: https://github.com/apps/claude/installations/select_target (hesap: kvrck69, depo: gonulmax). Sonra: `cd /home/claude/gm-repo && git push -u origin main`, ardından Pages (main, /docs).
 
+- 2026-11-04 14:58: Claude GitHub uygulaması yüklendi, push BAŞARILI (main, 2 commit). Pages API'si proxy'de engelli (403) → kullanıcı Pages'i elle açmalı: depo → Settings → Pages → Source "Deploy from a branch" → Branch `main`, klasör `/docs` → Save. Adres: https://kvrck69.github.io/gonulmax/ (1-2 dk sonra). Açılınca: tarayıcıda test et (index, sw.js, manifest, konum, hava durumu).
+
 ## SIRADAKİ ADIM
 0. (YUKARIDAKİ YAYIN DURUMU) depo → push → Pages → adresi test et (tarayıcıda aç, sw.js ve manifest 200 dönüyor mu).
 1. Yayınlama: kullanıcı bilgisayarsız. Seçenekler: (a) Artifact olarak yayınla (claude.ai sayfası), (b) GitHub Pages (kullanıcının GitHub deposu/izni gerekir), (c) Netlify/Cloudflare Pages'e telefondan yükleme.
