@@ -3,6 +3,7 @@ import { CATALOG, slug } from './catalog.js';
 import { dailyPicks } from './core/dailyPick.js';
 import { formatIsoDate, parseIsoDate } from './core/dates.js';
 import { dayPartOf, localParts, seasonOf } from './core/season.js';
+import { NOTE_AXES, noteRadar, suggestFor } from './core/noteProfile.js';
 import { scentScore } from './core/scentScore.js';
 import { wearCountsByDate, wearStreak } from './core/streak.js';
 import { DAY_PARTS, FAMILIES, OCCASIONS, SEASONS } from './core/types.js';
@@ -559,6 +560,77 @@ function heatmap(dates, today) {
   return h('div', { class: 'heat', role: 'img', 'aria-label': t('stats.heatmap') }, cells);
 }
 
+function radarChart(values, gaps) {
+  const size = 340;
+  const c = size / 2;
+  const R = 100;
+  const n = NOTE_AXES.length;
+  const svg = document.createElementNS(SVG_NS, 'svg');
+  svg.setAttribute('viewBox', `0 0 ${size} ${size}`);
+  svg.setAttribute('class', 'radar');
+  svg.setAttribute('role', 'img');
+  svg.setAttribute('aria-label', t('radar.title'));
+  svg.setAttribute('data-testid', 'radar');
+  const el = (tag, attrs, text) => {
+    const e = document.createElementNS(SVG_NS, tag);
+    for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, String(v));
+    if (text !== undefined) e.textContent = text;
+    svg.append(e);
+    return e;
+  };
+  const pt = (i, r) => {
+    const a = -Math.PI / 2 + (2 * Math.PI * i) / n;
+    return [c + r * Math.cos(a), c + r * Math.sin(a)];
+  };
+  for (const ring of [0.25, 0.5, 0.75, 1]) {
+    el('polygon', { class: 'radar-ring', points: NOTE_AXES.map((_, i) => pt(i, R * ring).join(',')).join(' ') });
+  }
+  NOTE_AXES.forEach((axis, i) => {
+    const [x, y] = pt(i, R);
+    el('line', { class: 'radar-spoke', x1: c, y1: c, x2: x, y2: y });
+  });
+  el('polygon', { class: 'radar-area', points: NOTE_AXES.map((a, i) => pt(i, R * Math.max(0.02, values[a])).join(',')).join(' ') });
+  NOTE_AXES.forEach((axis, i) => {
+    const [x, y] = pt(i, R * Math.max(0.02, values[axis]));
+    el('circle', { class: 'radar-dot', cx: x, cy: y, r: 2.5 });
+    const [lx, ly] = pt(i, R + 16);
+    const anchor = Math.abs(lx - c) < 8 ? 'middle' : lx > c ? 'start' : 'end';
+    el('text', { class: gaps.includes(axis) ? 'radar-label gap' : 'radar-label', x: lx, y: ly + 3.5, 'text-anchor': anchor }, t(`note.${axis}`));
+  });
+  return svg;
+}
+
+function radarCard(owned) {
+  const { values, gaps } = noteRadar(owned);
+  const ownedIds = new Set(owned.map((f) => f.id));
+  const catalog = allFragrances();
+  const weakest = gaps.slice(0, 3);
+  return h(
+    'div',
+    { class: 'card', 'data-testid': 'radar-card' },
+    h('h2', null, t('radar.title')),
+    h('p', { class: 'muted' }, t('radar.sub')),
+    radarChart(values, gaps),
+    weakest.length
+      ? h(
+          'div',
+          { class: 'gaps' },
+          h('h3', null, t('radar.gaps')),
+          weakest.map((axis) => {
+            const picks = suggestFor(axis, catalog, ownedIds, 3);
+            return h(
+              'div',
+              { class: 'gap-row', 'data-testid': 'radar-gap' },
+              h('b', null, `${t(`note.${axis}`)} · %${Math.round(values[axis] * 100)}`),
+              picks.length ? h('div', { class: 'muted' }, `${t('radar.try')}: ${picks.map((f) => `${f.brand} ${f.name}`).join(', ')}`) : null,
+            );
+          }),
+        )
+      : h('p', { class: 'muted' }, t('radar.nogap')),
+    h('p', { class: 'note' }, t('radar.estimate')),
+  );
+}
+
 function viewStats() {
   const ctx = todayContext();
   const state = getState();
@@ -590,6 +662,7 @@ function viewStats() {
         ),
       ),
     );
+    wrap.append(radarCard(owned));
     wrap.append(
       h('div', { class: 'card' }, h('h2', null, t('stats.tips')), tips.length ? h('ul', { class: 'tips' }, tips.slice(0, 6).map((tip) => h('li', null, tip))) : h('p', { class: 'muted' }, t('stats.tips.none'))),
     );

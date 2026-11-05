@@ -174,3 +174,11 @@ dialog.sheet::backdrop { background: rgba(0, 0, 0, 0.6); }
 #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+.radar{width:100%;max-width:420px;display:block;margin:.5rem auto}
+.radar-ring,.radar-spoke{fill:none;stroke:var(--line,#8884);stroke-width:1}
+.radar-area{fill:var(--accent,#e0a458);fill-opacity:.35;stroke:var(--accent,#e0a458);stroke-width:2;stroke-linejoin:round}
+.radar-dot{fill:var(--accent,#e0a458)}
+.radar-label{font-size:10px;fill:var(--text,currentColor)}
+.radar-label.gap{font-weight:700;fill:var(--danger,#d9534f)}
+.gap-row{margin:.5rem 0}

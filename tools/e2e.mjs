@@ -127,6 +127,8 @@ await step('İstatistik: skor halkası, çubuklar ve ipuçları görünür; skor
   const score = await page.locator('[data-testid="score"] .ring-text').textContent();
   assert.ok(Number(score) >= 0 && Number(score) <= 100, `skor ${score}`);
   assert.equal(await page.locator('[data-testid="score"] .bar').count(), 4);
+  assert.equal(await page.locator('[data-testid="radar"] .radar-label').count(), 16, 'radar 16 eksen');
+  assert.ok((await page.locator('[data-testid="radar-gap"]').count()) >= 1, 'eksik not satırı');
   await page.screenshot({ path: `${SHOTS}/04-stats.png`, fullPage: true });
 });
 
