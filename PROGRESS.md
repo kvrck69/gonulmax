@@ -46,7 +46,7 @@ Kullanıcı bilgisayarı olmadığını söyledi; npm/PyPI de bu ortamda engelli
 - `0001_init.sql` hiç çalıştırılmadı.
 
 ## YARIM KALAN
-(yok)
+KATALOG GENİŞLETME (2026-11-05): kullanıcı Boyner+Sephora TR+Beymen'deki TÜM erkek/unisex parfümleri istiyor (boyut tekrarı yok; EDP/EDT/Parfum ayrı satır). Plan: 3 ajan ham TSV üretir -> scratchpad/raw_{sephora,boyner,beymen}.tsv (brand,name,concentration,gender,url) -> birleştir/dedupe -> web/js/catalog.js yeniden üret (aile/mevsim tahmini işaretli) -> sw.js cache bump, build, docs, test, push. Sephora erkek=473 ürün (24/sayfa), Beymen erkek=3162 (?sayfa=N), Boyner ?-sayfalama.
 
 ## YAYIN DURUMU (2026-11-04)
 - GitHub hesabı bağlandı: kullanıcı `kvrck69`. Oturum yeni depo OLUŞTURAMIYOR (403: "sessions are bound to their configured repositories"); `list_repos` boş.
@@ -70,3 +70,10 @@ Kullanıcı bilgisayarı olmadığını söyledi; npm/PyPI de bu ortamda engelli
 - Kararlar: Gönülmax, TR+EN, elle katalog, AI ertelendi.
 - npm/PyPI engeli; çekirdek algoritmalar + SQL yazıldı (39 test).
 - Kullanıcı "bilgisayar yok" dedi → paket gerektirmeyen yerel-öncelikli PWA yazıldı, tarayıcıda test edildi (15/15).
+
+## KATALOG GENİŞLETME (2026-11-05)
+- İstek: Boyner+Sephora+Beymen erkek/unisex tüm parfümler; aynı parfümün ml'leri tek, EDP/EDT vb. ayrı.
+- BEYMEN BİTTİ: 3161 liste satırı çekildi → temizlenip birleştirildi → 2376 benzersiz parfüm (161 marka; 1831 m / 545 u; 608'inde konsantrasyon boş). Dosya: scratchpad/raw_beymen.tsv (build.py ile üretilir). Katalog dosyasına HENÜZ aktarılmadı (web/js/catalog.js hâlâ 76).
+- KULLANICI: Beymen sonrası DUR, onay bekle. Sonra Sephora (473) ve Boyner.
+- 2026-11-06: 3 mağaza birleştirildi → tools/catalog-merged.json (3472; Beymen 2376 + Sephora 237 yeni + Boyner 859 yeni; çapraz-mağaza tekilleştirme) → tools/make-catalog.py → web/js/catalog-data.js (3353 satır, boş-konsantrasyon yinelemeleri elendi) ; catalog.js 76 elle + toplu = 3339 benzersiz. Aile/yoğunluk/durum TAHMİN (addan anahtar kelime + konsantrasyon). Arayüz: "Daha fazla göster" sayfalama. sw cache v2. Testler: 39 birim + 15 e2e geçti.
+- Eksikler: Sephora yalnızca 390 satır (site 473 ürün diyor); gerçek koku aileleri/notaları yok; Boyner'de adı belirsiz ("Erkek Parfüm") 88 ürün atlandı.

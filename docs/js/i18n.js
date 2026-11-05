@@ -52,6 +52,7 @@ const STRINGS = {
     'col.niche': 'Niş',
     'col.intensity': 'Yoğunluk',
     'col.shown': 'gösterilen',
+    'col.more': 'Daha fazla göster',
 
     'form.title': 'Parfüm ekle',
     'form.brand': 'Marka',
@@ -195,6 +196,7 @@ const STRINGS = {
     'col.niche': 'Niche',
     'col.intensity': 'Intensity',
     'col.shown': 'shown',
+    'col.more': 'Show more',
 
     'form.title': 'Add a fragrance',
     'form.brand': 'Brand',

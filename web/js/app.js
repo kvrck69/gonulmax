@@ -12,7 +12,7 @@ import { SEASON_FALLBACK, getWeather } from './weather.js';
 
 const root = document.getElementById('app');
 const ROUTES = ['today', 'collection', 'stats', 'profile'];
-const ui = { tab: 'owned', query: '', weather: null, weatherKey: '', weatherLoading: false, weatherAt: 0 };
+const ui = { tab: 'owned', query: '', weather: null, weatherKey: '', weatherLoading: false, weatherAt: 0, shown: 40 };
 
 // ---------------------------------------------------------------- yardımcılar
 function h(tag, attrs, ...kids) {
@@ -385,10 +385,13 @@ function fillList(container) {
     );
     return;
   }
-  const shown = ui.tab === 'catalog' ? list.slice(0, CATALOG_LIMIT) : list;
+  const shown = ui.tab === 'catalog' ? list.slice(0, ui.shown) : list;
   for (const f of shown) container.append(card(f));
   if (ui.tab === 'catalog' && total > shown.length) {
-    container.append(h('p', { class: 'muted center' }, `${shown.length} / ${total} ${t('col.shown')}`));
+    container.append(
+      h('p', { class: 'muted center' }, `${shown.length} / ${total} ${t('col.shown')}`),
+      h('button', { class: 'btn', type: 'button', 'data-testid': 'more', onclick: () => { ui.shown += CATALOG_LIMIT; fillList(container); } }, t('col.more')),
+    );
   }
 }
 
@@ -482,6 +485,7 @@ function viewCollection() {
     autocomplete: 'off',
     oninput: (event) => {
       ui.query = event.target.value;
+      ui.shown = CATALOG_LIMIT;
       fillList(listEl);
     },
   });

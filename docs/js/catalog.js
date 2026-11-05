@@ -1,3 +1,5 @@
+import DATA from './catalog-data.js';
+
 // Başlangıç kataloğu: elle derlenmiş, YAKLAŞIK değerler. Kazıma yok, dış veri tabanından kopya yok.
 // Mevsim/gündüz-gece/yoğunluk/durum değerleri aile şablonundan ve tahminden gelir; kullanıcı onayına açıktır.
 // Eksik parfümü kullanıcı uygulamadan kendisi ekleyebilir.
@@ -130,7 +132,23 @@ function build([brand, name, family, niche, intensity, codes]) {
   };
 }
 
-export const CATALOG = RAW.map(build);
+const CURATED = RAW.map(build);
+const curatedIds = new Set(CURATED.map((item) => item.id));
+const CONC_TAIL = /\s+(edp|edt|edc|parfum|extrait|elixir|cologne)$/i;
+
+// Elle derlenenler önceliklidir; toplu listede aynı parfüm varsa tekrar eklenmez.
+const BULK = [];
+const usedIds = new Set(curatedIds);
+for (const row of DATA) {
+  const item = build(row.slice(0, 6));
+  if (curatedIds.has(slug(`${item.brand} ${item.name.replace(CONC_TAIL, '')}`))) continue;
+  let id = item.id;
+  for (let n = 2; usedIds.has(id); n += 1) id = `${item.id}-${n}`;
+  usedIds.add(id);
+  BULK.push({ ...item, id, unisex: row[6] === 1, estimated: true });
+}
+
+export const CATALOG = [...CURATED, ...BULK];
 
 // Kimlik çakışması olursa uygulama sessizce yanlış çalışmasın diye açılışta hata atar.
 {
