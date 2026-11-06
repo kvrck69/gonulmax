@@ -182,3 +182,4 @@ dialog.sheet::backdrop { background: rgba(0, 0, 0, 0.6); }
 .radar-label{font-size:10px;fill:var(--text,currentColor)}
 .radar-label.gap{font-weight:700;fill:var(--danger,#d9534f)}
 .gap-row{margin:.5rem 0}
+.small-note{font-size:.78rem;margin:.35rem 0 0}

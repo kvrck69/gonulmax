@@ -145,7 +145,7 @@ for (const row of DATA) {
   let id = item.id;
   for (let n = 2; usedIds.has(id); n += 1) id = `${item.id}-${n}`;
   usedIds.add(id);
-  BULK.push({ ...item, id, unisex: row[6] === 1, estimated: true });
+  BULK.push({ ...item, id, unisex: row[6] === 1, ...(row[7] ? { notes: row[7], pyramid: row[8] || null } : {}), estimated: !row[7] });
 }
 
 export const CATALOG = [...CURATED, ...BULK];

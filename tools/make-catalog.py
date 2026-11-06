@@ -1,6 +1,8 @@
 # tools/catalog-merged.json (Beymen+Sephora+Boyner, tekilleştirilmiş) -> web/js/catalog-data.js
 # Kullanım: python3 -I tools/make-catalog.py   (aile/yoğunluk değerleri TAHMİNDİR)
-import json,re,unicodedata
+import json,re,unicodedata,sys,os
+sys.path.insert(0,'tools')
+from notes_lexicon import profile
 def nb(s): return re.sub(r'[^a-z0-9]','',unicodedata.normalize('NFKD',s.replace('ı','i').replace('İ','I')).encode('ascii','ignore').decode().lower())
 L=json.load(open('tools/catalog-merged.json',encoding='utf-8'))
 # boş konsantrasyonlu kayıt, aynı parfümün konsantrasyonu belli bir kaydı varsa yinelenmiştir
@@ -33,16 +35,31 @@ def fam(v):
 def fixbrand(b):
     return b.title() if b.isupper() and len(b)>3 else b
 occ={'citrus':'ocs','aquatic':'ocs','green':'oc','aromatic':'ocd','floral':'ocdf','woody':'ocdf','chypre':'dnf','leather':'dn','oriental':'dnf','gourmand':'dn'}
+NOTES=json.load(open('tools/catalog-notes.json',encoding='utf-8')) if os.path.exists('tools/catalog-notes.json') else {}
+AX2FAM={'citrus':'citrus','floral':'floral','aldehydic':'floral','oriental':'oriental','lavender':'aromatic','fougere':'aromatic','fruity':'floral','conifer':'green','chypre':'chypre','herbaceous':'aromatic','green':'green','spicy':'oriental','woody':'woody','tobacco':'leather','leather':'leather','musk':'floral'}
 rows=[]
+real=0
 for v in keep:
     b=fixbrand(v['brand']);n=v['name'].strip()
     if v['conc'] and v['conc']!='Other' and not re.search(r'\b'+re.escape(v['conc'])+r'\b',n,re.I): n=f"{n} {v['conc']}"
+    nt=NOTES.get(f"{v['brand']}|{v['name']}|{v['conc']}")
     f=fam(v);i=INT[v['conc']]
+    prof=0;pyr=0
+    if nt:
+        prof=profile(nt['accords'],nt['top'],nt['heart'],nt['base'])
+        if prof:
+            real+=1
+            pyr=[nt['top'],nt['heart'],nt['base']] if (nt['top'] or nt['heart'] or nt['base']) else 0
+            acc=nt['accords']
+            if 'Aquatic' in acc[:2]: f='aquatic'
+            elif 'Gourmand' in acc[:2]: f='gourmand'
+            else: f=AX2FAM[max(prof,key=prof.get)]
+        else: prof=0
     o=occ[f]+('n' if i==5 and 'n' not in occ[f] else '')
     niche=0 if nb(b) in MAIN else 1
-    rows.append([b,n,f,niche,i,o,1 if v['g']=='u' else 0])
+    rows.append([b,n,f,niche,i,o,1 if v['g']=='u' else 0,prof,pyr])
 json.dump(rows,open('/tmp/rows.json','w'),ensure_ascii=False)
-js='// OTOMATİK ÜRETİLİR (tools/make-catalog.py). Kaynak: Beymen, Sephora TR, Boyner erkek/unisex parfüm listeleri (yalnızca marka+ad+konsantrasyon).\n// Aile/yoğunluk/durum değerleri addan ve konsantrasyondan TAHMİN edilmiştir; doğru değildir, kullanıcı düzeltebilir.\n// [marka, ad, aile, niş, yoğunluk, durumlar, unisex]\nexport default '+json.dumps(rows,ensure_ascii=False,separators=(',',':'))+';\n'
+js='// OTOMATİK ÜRETİLİR (tools/make-catalog.py). Kaynak: Beymen, Sephora TR, Boyner erkek/unisex parfüm listeleri (yalnızca marka+ad+konsantrasyon).\n// Aile/yoğunluk/durum değerleri addan ve konsantrasyondan TAHMİN edilmiştir; doğru değildir, kullanıcı düzeltebilir.\n// [marka, ad, aile, niş, yoğunluk, durumlar, unisex, nota-profili(0=yok→tahmin), [üst,kalp,alt] notalar]\n// Nota verisi: Parfumo (TidyTuesday 2024-12-10 derlemesi, Kaggle/Olga G. Miufana), yalnızca kişisel ve ticari olmayan kullanım.\nexport default '+json.dumps(rows,ensure_ascii=False,separators=(',',':'))+';\n'
 open('web/js/catalog-data.js','w',encoding='utf-8').write(js)
-print(len(L),len(keep),len(js))
+print(len(L),len(keep),len(js),'gerçek nota:',real)
 import collections;print(collections.Counter(r[2] for r in rows),sum(r[3] for r in rows))

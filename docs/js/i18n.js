@@ -53,6 +53,7 @@ const STRINGS = {
     'col.intensity': 'Yoğunluk',
     'col.shown': 'gösterilen',
     'col.more': 'Daha fazla göster',
+    'card.notes': 'Notalar',
     'note.citrus': 'Narenciye',
     'note.floral': 'Çiçeksi',
     'note.aldehydic': 'Aldehitli',
@@ -74,7 +75,7 @@ const STRINGS = {
     'radar.gaps': 'Eksik notalar',
     'radar.try': 'Dene',
     'radar.nogap': 'Tüm notalar iyi kapsanıyor.',
-    'radar.estimate': 'Değerler parfüm adı ve koku ailesinden yapılan tahmindir; gerçek nota değerleriyle birebir değildir.',
+    'radar.estimate': '{real}/{total} parfümün notası Parfumo verisinden; diğerleri ad ve koku ailesinden yapılan tahmindir.',
 
     'form.title': 'Parfüm ekle',
     'form.brand': 'Marka',
@@ -219,6 +220,7 @@ const STRINGS = {
     'col.intensity': 'Intensity',
     'col.shown': 'shown',
     'col.more': 'Show more',
+    'card.notes': 'Notes',
     'note.citrus': 'Citrus',
     'note.floral': 'Floral',
     'note.aldehydic': 'Aldehydic',
@@ -240,7 +242,7 @@ const STRINGS = {
     'radar.gaps': 'Missing notes',
     'radar.try': 'Try',
     'radar.nogap': 'All notes are well covered.',
-    'radar.estimate': 'Values are estimated from the fragrance name and family, not exact note data.',
+    'radar.estimate': '{real}/{total} fragrances use Parfumo note data; the rest are estimated from name and family.',
 
     'form.title': 'Add a fragrance',
     'form.brand': 'Brand',

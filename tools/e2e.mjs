@@ -108,6 +108,7 @@ await step('Bugün: sıcak yaz öğleden sonrası ana parfüm Light Blue (narenc
 
 await step('"Bugün bunu giydim" kaydeder, seri 1 olur, geri alınır, çift dokunma kopya üretmez', async () => {
   await page.click('[data-testid="wear-main"]');
+  await page.waitForFunction(() => /Bugün giydin/.test(document.querySelector('[data-testid="wear-main"]')?.innerText ?? ''), null, { timeout: 5000 });
   assert.match(await page.locator('[data-testid="wear-main"]').innerText(), /Bugün giydin/);
   await nav(page, 'stats');
   const streak = await page.locator('[data-testid="streak"]').innerText();

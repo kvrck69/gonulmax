@@ -88,8 +88,29 @@ function fragranceMap() {
   return new Map(allFragrances().map((f) => [f.id, f]));
 }
 
+const collators = {};
 function collator() {
-  return new Intl.Collator(getLocale() === 'tr' ? 'tr' : 'en');
+  const key = getLocale() === 'tr' ? 'tr' : 'en';
+  return (collators[key] ||= new Intl.Collator(key));
+}
+
+const hayCache = new WeakMap();
+function hayOf(f) {
+  let hay = hayCache.get(f);
+  if (hay === undefined) hayCache.set(f, (hay = normalize(`${f.brand} ${f.name}`)));
+  return hay;
+}
+
+let sortedKey = '';
+let sortedList = [];
+function sortedAll() {
+  const custom = getState().custom;
+  const key = `${getLocale()}|${custom.length}|${custom.map((c) => c.id).join(',')}`;
+  if (key !== sortedKey) {
+    sortedKey = key;
+    sortedList = allFragrances().sort(byBrandName);
+  }
+  return sortedList;
 }
 
 function byBrandName(a, b) {
@@ -139,7 +160,8 @@ function todayContext() {
   const dayPart = dayPartOf(parts.hour);
   const lastWornOn = {};
   for (const wear of getState().wears) {
-    if (wear.date <= parts.date && (!lastWornOn[wear.fragranceId] || wear.date > lastWornOn[wear.fragranceId])) {
+    // Bugünkü giyme sayılmaz: günün önerisi "giydim"e basınca başka parfüme kaymasın.
+    if (wear.date < parts.date && (!lastWornOn[wear.fragranceId] || wear.date > lastWornOn[wear.fragranceId])) {
       lastWornOn[wear.fragranceId] = wear.date;
     }
   }
@@ -327,7 +349,7 @@ function card(f) {
   return h(
     'div',
     { class: 'card frag', 'data-testid': 'frag-card', 'data-id': f.id },
-    h('div', { class: 'grow' }, fragranceHeader(f), chips(f, isCustom ? h('span', { class: 'chip' }, t('col.custom.badge')) : null)),
+    h('div', { class: 'grow' }, fragranceHeader(f), chips(f, isCustom ? h('span', { class: 'chip' }, t('col.custom.badge')) : null), f.pyramid ? h('p', { class: 'muted small-note', 'data-testid': 'notes' }, `${t('card.notes')}: ${f.pyramid.flat().slice(0, 9).join(' · ')}`) : null),
     h(
       'div',
       { class: 'actions' },
@@ -360,11 +382,14 @@ function listFor(tab, query) {
   const { items } = getState();
   if (tab === 'catalog') {
     const tokens = normalize(query).split(/\s+/).filter(Boolean);
-    const matches = allFragrances().filter((f) => {
-      const hay = normalize(`${f.brand} ${f.name}`);
-      return tokens.every((tok) => hay.includes(tok));
-    });
-    return { list: matches.sort(byBrandName), total: matches.length };
+    const sorted = sortedAll();
+    const matches = tokens.length
+      ? sorted.filter((f) => {
+          const hay = hayOf(f);
+          return tokens.every((tok) => hay.includes(tok));
+        })
+      : sorted;
+    return { list: matches, total: matches.length };
   }
   const status = tab === 'owned' ? 'owned' : 'wishlist';
   const list = Object.entries(items)
@@ -627,7 +652,7 @@ function radarCard(owned) {
           }),
         )
       : h('p', { class: 'muted' }, t('radar.nogap')),
-    h('p', { class: 'note' }, t('radar.estimate')),
+    h('p', { class: 'note' }, t('radar.estimate', { real: owned.filter((f) => f.notes).length, total: owned.length })),
   );
 }
 
