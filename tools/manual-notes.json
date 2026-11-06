@@ -1,0 +1,487 @@
+{
+ "Dolce&Gabbana|Light Blue Capri In Love Pour Homme|EDP": {
+  "accords": [],
+  "top": [
+   "black pepper"
+  ],
+  "heart": [
+   "green fig"
+  ],
+  "base": [
+   "patchouli"
+  ],
+  "src": "https://www.sephora.co.uk/p/dolce-gabbana-light-blue-capri-in-love-pour-homme-eau-de-parfum",
+  "match": "manual",
+  "pname": "Dolce&Gabbana|Light Blue Capri In Love Pour Homme|EDP"
+ },
+ "Dolce&Gabbana|Pour Homme|EDT": {
+  "accords": [
+   "spicy",
+   "woody",
+   "fresh",
+   "citrus",
+   "sweet"
+  ],
+  "top": [
+   "bergamot",
+   "mandarin orange",
+   "orange"
+  ],
+  "heart": [
+   "lavender",
+   "sage",
+   "tarragon",
+   "cardamom",
+   "pepper"
+  ],
+  "base": [
+   "tobacco",
+   "cedar",
+   "sandalwood",
+   "tonka bean",
+   "iris"
+  ],
+  "src": "https://www.parfumo.com/Perfumes/Dolce_Gabbana/Dolce__Gabbana_pour_Homme_1994_Eau_de_Toilette",
+  "match": "manual",
+  "pname": "Dolce&Gabbana|Pour Homme|EDT"
+ },
+ "Elie Saab|L'Homme|EDP": {
+  "accords": [
+   "green",
+   "fresh",
+   "floral",
+   "spicy",
+   "citrus"
+  ],
+  "top": [
+   "galbanum",
+   "green pepper",
+   "ginger"
+  ],
+  "heart": [
+   "iris",
+   "jasmine sambac",
+   "turkish rose"
+  ],
+  "base": [
+   "cedar",
+   "patchouli",
+   "white musk"
+  ],
+  "src": "https://www.parfumo.com/Perfumes/Elie_Saab/l-homme-eau-de-parfum",
+  "match": "manual",
+  "pname": "Elie Saab|L'Homme|EDP"
+ },
+ "Jean Paul Gaultier|Le Beau Narcisse|EDP": {
+  "accords": [],
+  "top": [
+   "bergamot"
+  ],
+  "heart": [
+   "powdery musk"
+  ],
+  "base": [
+   "tonka bean"
+  ],
+  "src": "https://www.jeanpaulgaultier.com/us/en_US/p/range-le-beau/le-beau-narcisse-eau-de-parfum-000000000065243566",
+  "match": "manual",
+  "pname": "Jean Paul Gaultier|Le Beau Narcisse|EDP"
+ },
+ "Montblanc|Vetiver Glacier|EDP": {
+  "accords": [],
+  "top": [],
+  "heart": [
+   "vetiver",
+   "juniper berry",
+   "sandalwood",
+   "styrax"
+  ],
+  "base": [],
+  "src": "https://www.montblanc.com/en-gb/montblanc-collection-vetiver-glacier-edp-125-ml--MB133458.html",
+  "match": "manual",
+  "pname": "Montblanc|Vetiver Glacier|EDP"
+ },
+ "Prada|Paradigme|EDP": {
+  "accords": [],
+  "top": [
+   "calabrian bergamot",
+   "musk"
+  ],
+  "heart": [
+   "geranium"
+  ],
+  "base": [
+   "peru balsam",
+   "benzoin",
+   "guaiac wood"
+  ],
+  "src": "https://aromatica.one/product/prada/paradigme",
+  "match": "manual",
+  "pname": "Prada|Paradigme|EDP"
+ },
+ "Versace|Eros Najim|Parfum": {
+  "accords": [],
+  "top": [
+   "yellow mandarin",
+   "clary sage",
+   "saffron",
+   "cardamom"
+  ],
+  "heart": [
+   "oud",
+   "cedarwood",
+   "caramel"
+  ],
+  "base": [
+   "patchouli",
+   "vetiver",
+   "incense",
+   "tonka bean"
+  ],
+  "src": "https://www.versace.com/lb/en/men/accessories/fragrances-body-care/eros-najim-parfum-50-ml/R740308-R050MLS_RNUL.html",
+  "match": "manual",
+  "pname": "Versace|Eros Najim|Parfum"
+ },
+ "Atkinsons|Mystic Moonlight Intense|Parfum": {
+  "accords": [],
+  "top": [
+   "tropical accord",
+   "coconut absolute",
+   "red ginger"
+  ],
+  "heart": [
+   "oud accord",
+   "cedarwood",
+   "cypriol",
+   "cistus labdanum"
+  ],
+  "base": [
+   "tonka bean",
+   "amber"
+  ],
+  "src": "https://atkinsons1799.com/products/mystic-moonlight",
+  "match": "manual",
+  "pname": "Atkinsons|Mystic Moonlight Intense|Parfum"
+ },
+ "Atkinsons|Platinum Blend Intense|Parfum": {
+  "accords": [],
+  "top": [],
+  "heart": [
+   "belanis",
+   "bay oil",
+   "heliotrope",
+   "sandalwood",
+   "labdanum",
+   "tonka bean"
+  ],
+  "base": [],
+  "src": "https://www.atkinsons1799.com/products/platinum-blend",
+  "match": "manual",
+  "pname": "Atkinsons|Platinum Blend Intense|Parfum"
+ },
+ "Atkinsons|Midnight Scented Dream Intense|Parfum": {
+  "accords": [],
+  "top": [],
+  "heart": [
+   "bergamot",
+   "paradisone",
+   "jasmine sambac",
+   "vanilla",
+   "white almond",
+   "sandalwood",
+   "anthamber"
+  ],
+  "base": [],
+  "src": "https://www.atkinsons1799.com/products/midnight-scented-dream",
+  "match": "manual",
+  "pname": "Atkinsons|Midnight Scented Dream Intense|Parfum"
+ },
+ "Atkinsons|Ambre Royal Intense|Parfum": {
+  "accords": [],
+  "top": [],
+  "heart": [
+   "ylang-ylang",
+   "magnolia",
+   "amber",
+   "labdanum",
+   "frankincense",
+   "vetiver",
+   "sandalwood"
+  ],
+  "base": [],
+  "src": "https://www.atkinsons1799.com/products/ambre-royal",
+  "match": "manual",
+  "pname": "Atkinsons|Ambre Royal Intense|Parfum"
+ },
+ "Azzaro|Forever Wanted|Elixir": {
+  "accords": [],
+  "top": [
+   "raspberry",
+   "green mandarin",
+   "bergamot"
+  ],
+  "heart": [
+   "clary sage",
+   "lavandin",
+   "cardamom"
+  ],
+  "base": [
+   "leather",
+   "vetiver",
+   "wolfwood"
+  ],
+  "src": "https://www.ulta.com/p/forever-wanted-elixir-pimprod2050973",
+  "match": "manual",
+  "pname": "Azzaro|Forever Wanted|Elixir"
+ },
+ "Azzaro|Forever Wanted Absolu|EDP": {
+  "accords": [],
+  "top": [
+   "incense"
+  ],
+  "heart": [
+   "whiskey"
+  ],
+  "base": [
+   "vanilla"
+  ],
+  "src": "https://www.ulta.com/p/forever-wanted-absolu-eau-de-parfum-pimprod2057928",
+  "match": "manual",
+  "pname": "Azzaro|Forever Wanted Absolu|EDP"
+ },
+ "Bentley|Become|EDP": {
+  "accords": [],
+  "top": [
+   "sweet orange",
+   "bergamot",
+   "black pepper"
+  ],
+  "heart": [
+   "juniper berry",
+   "myrrh",
+   "cedar"
+  ],
+  "base": [
+   "vetiver",
+   "patchouli",
+   "sandalwood"
+  ],
+  "src": "https://www.harrods.com/en-gb/p/become-eau-de-parfum-100ml-000000000007688411",
+  "match": "manual",
+  "pname": "Bentley|Become|EDP"
+ },
+ "Bentley|Become Zenith|EDP": {
+  "accords": [],
+  "top": [
+   "violet leaf",
+   "cardamom",
+   "cocoa"
+  ],
+  "heart": [
+   "leather",
+   "papyrus",
+   "patchouli"
+  ],
+  "base": [
+   "vanilla",
+   "ambergris"
+  ],
+  "src": "https://press.lalique.com/elevate-your-journey-bentley-fragrances-introduces-become-zenith",
+  "match": "manual",
+  "pname": "Bentley|Become Zenith|EDP"
+ },
+ "Burberry|Hero de|Elixir": {
+  "accords": [],
+  "top": [
+   "tonka bean"
+  ],
+  "heart": [
+   "vanilla",
+   "leather"
+  ],
+  "base": [
+   "cedar"
+  ],
+  "src": "https://www.ulta.com/p/hero-elixir-de-parfum-pimprod2057462",
+  "match": "manual",
+  "pname": "Burberry|Hero de|Elixir"
+ },
+ "Burberry|Hero Intense|Parfum": {
+  "accords": [],
+  "top": [
+   "black pepper"
+  ],
+  "heart": [
+   "cedar"
+  ],
+  "base": [
+   "leather"
+  ],
+  "src": "https://www.ulta.com/p/hero-parfum-intense-pimprod2050360",
+  "match": "manual",
+  "pname": "Burberry|Hero Intense|Parfum"
+ },
+ "Burberry|Classic for Men|EDT": {
+  "accords": [],
+  "top": [
+   "bergamot",
+   "lavender",
+   "mint",
+   "thyme"
+  ],
+  "heart": [
+   "moss",
+   "geranium",
+   "sandalwood"
+  ],
+  "base": [
+   "amber",
+   "cedar"
+  ],
+  "src": "https://www.woolworths.co.za/prod/Beauty/Fragrance/Men-s-Fragrance/Burberry-Classic-Eau-de-Toilette-for-Men/_/A-510160168",
+  "match": "manual",
+  "pname": "Burberry|Classic for Men|EDT"
+ },
+ "Carolina Herrera|Bad Boy Cobalt Absolute|EDP": {
+  "accords": [
+   "sweet",
+   "woody",
+   "fresh",
+   "synthetic",
+   "floral"
+  ],
+  "top": [
+   "blue sage",
+   "elemi",
+   "lavender"
+  ],
+  "heart": [
+   "geranium",
+   "oud",
+   "white truffle"
+  ],
+  "base": [
+   "oak",
+   "vetiver",
+   "vanilla"
+  ],
+  "src": "https://www.parfumo.com/Perfumes/Carolina_Herrera/bad-boy-cobalt-absolute",
+  "match": "manual",
+  "pname": "Carolina Herrera|Bad Boy Cobalt Absolute|EDP"
+ },
+ "Davidoff|Cool Elixir Man Intense|Parfum": {
+  "accords": [],
+  "top": [
+   "rose oxide"
+  ],
+  "heart": [
+   "lavandin"
+  ],
+  "base": [
+   "oud"
+  ],
+  "src": "https://www.perfumestars.com/?p=23040",
+  "match": "manual",
+  "pname": "Davidoff|Cool Elixir Man Intense|Parfum"
+ },
+ "Dsquared2|DSQ2 Icon Pour Homme|EDP": {
+  "accords": [],
+  "top": [
+   "bergamot",
+   "pink pepper"
+  ],
+  "heart": [
+   "vetiver",
+   "tonka bean"
+  ],
+  "base": [
+   "cedar",
+   "labdanum"
+  ],
+  "src": "https://www.perfume.com/dsquared2/dsquared2-icon-pour-homme/men-cologne",
+  "match": "manual",
+  "pname": "Dsquared2|DSQ2 Icon Pour Homme|EDP"
+ },
+ "Ferragamo|Sublime Leather|EDP": {
+  "accords": [],
+  "top": [],
+  "heart": [
+   "bergamot",
+   "apple",
+   "orange blossom",
+   "tonka bean",
+   "cocoa",
+   "vanilla",
+   "vetiver",
+   "patchouli",
+   "sandalwood",
+   "labdanum"
+  ],
+  "base": [],
+  "src": "https://nstperfume.com/2025/09/06/salvatore-ferragamo-sublime-leather-new-fragrance/",
+  "match": "manual",
+  "pname": "Ferragamo|Sublime Leather|EDP"
+ },
+ "Giorgio Armani|Stronger With You Powerfully|EDP": {
+  "accords": [],
+  "top": [
+   "cherry",
+   "mandarin orange"
+  ],
+  "heart": [
+   "lavender"
+  ],
+  "base": [
+   "candied chestnut",
+   "vanilla"
+  ],
+  "src": "https://www.sephora.fr/p-P1000211947.html",
+  "match": "manual",
+  "pname": "Giorgio Armani|Stronger With You Powerfully|EDP"
+ },
+ "Giorgio Armani|I WILL|EDP": {
+  "accords": [],
+  "top": [
+   "cardamom",
+   "bergamot"
+  ],
+  "heart": [
+   "lavender",
+   "violet leaf",
+   "sage"
+  ],
+  "base": [
+   "vanilla",
+   "leather",
+   "woody notes",
+   "patchouli"
+  ],
+  "src": "https://www.scento.com/perfumes/i-will-giorgio-armani",
+  "match": "manual",
+  "pname": "Giorgio Armani|I WILL|EDP"
+ },
+ "Givenchy|Gentleman Society Sport|EDP": {
+  "accords": [],
+  "top": [
+   "lemon",
+   "lavender",
+   "clary sage",
+   "petitgrain"
+  ],
+  "heart": [
+   "narcissus",
+   "iris",
+   "vetiver"
+  ],
+  "base": [
+   "cedar",
+   "patchouli",
+   "amberwood",
+   "musk",
+   "vanilla"
+  ],
+  "src": "https://givenchybeauty.com/us/p/gentleman-society-sport-F10100346.html",
+  "match": "manual",
+  "pname": "Givenchy|Gentleman Society Sport|EDP"
+ }
+}

@@ -11,7 +11,12 @@ def toks(s):
     return re.findall(r'[a-z0-9]+',s)
 def key_words(name,brand):
     bw=set(toks(brand))|{'emporio'}
-    return tuple(sorted(w for w in toks(name) if w not in bw and w not in STOP and not re.fullmatch(r'(19|20)\d\d',w)))
+    if 'calvin' in bw: bw|={'ck'}
+    if 'jean' in bw and 'gaultier' in bw: bw|={'jpg'}
+    r=tuple(sorted(w for w in toks(name) if w not in bw and w not in STOP and not re.fullmatch(r'(19|20)\d\d',w)))
+    if not r:  # ad yalnızca 'Homme' gibi sözcüklerden oluşuyorsa onları koru
+        r=tuple(sorted(w for w in toks(name) if w not in bw and w not in {'eau','de','parfum','toilette','cologne','edp','edt','edc','extrait','elixir'}))
+    return r
 def conc_of(slug):
     s=' '.join(toks(slug))
     if re.search(r'\bextrait\b',s): return 'Extrait'
@@ -69,7 +74,7 @@ for v in L:
             if len({tuple(sorted(key_words(x['Perfume'],x['Brand']))) for x in cands})>1: cands=[]
     if not cands: stat['noname']+=1;continue
     mine=bool(MALE.search(v['name']))
-    cands=[x for x in cands if bool(MALE.search(x['Perfume'].replace('-',' ')))==mine] or []
+    # Cinsiyet filtresi: kadın kayıtlar zaten dışarıda; 'Pour Homme' gibi ekler ad eşleşmesini bozmasın diye ayrıca süzülmez.
     if not cands: stat['gender']+=1;continue
     c=v['conc']
     pick=[x for x in cands if conc_of(x['Perfume'])==c] or [x for x in cands if conc_of(x['Perfume'])==''] or cands
