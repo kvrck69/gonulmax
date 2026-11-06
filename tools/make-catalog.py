@@ -38,7 +38,8 @@ occ={'citrus':'ocs','aquatic':'ocs','green':'oc','aromatic':'ocd','floral':'ocdf
 NOTES=json.load(open('tools/catalog-notes.json',encoding='utf-8')) if os.path.exists('tools/catalog-notes.json') else {}
 FRA=json.load(open('tools/catalog-notes-fra.json',encoding='utf-8')) if os.path.exists('tools/catalog-notes-fra.json') else {}
 # Fragrantica derlemesi (üst/kalp/alt piramidi her kayıtta var) önceliklidir; yoksa Parfumo.
-NOTES={**NOTES,**FRA}
+MAN=json.load(open('tools/catalog-notes-manual.json',encoding='utf-8')) if os.path.exists('tools/catalog-notes-manual.json') else {}
+NOTES={**NOTES,**FRA,**MAN}  # elle onaylananlar en sonda: öncelikli
 AX2FAM={'citrus':'citrus','floral':'floral','aldehydic':'floral','oriental':'oriental','lavender':'aromatic','fougere':'aromatic','fruity':'floral','conifer':'green','chypre':'chypre','herbaceous':'aromatic','green':'green','spicy':'oriental','woody':'woody','tobacco':'leather','leather':'leather','musk':'floral'}
 def clean_name(n):
     n=re.split(r'\s*\\?\|',n)[0]
@@ -72,7 +73,13 @@ for v in keep:
     niche=0 if nb(b) in MAIN else 1
     rows.append([b,n,f,niche,i,o,1 if v['g']=='u' else 0,prof,pyr])
 json.dump(rows,open('/tmp/rows.json','w'),ensure_ascii=False)
-js='// OTOMATİK ÜRETİLİR (tools/make-catalog.py). Kaynak: Beymen, Sephora TR, Boyner erkek/unisex parfüm listeleri (yalnızca marka+ad+konsantrasyon).\n// Aile/yoğunluk/durum değerleri addan ve konsantrasyondan TAHMİN edilmiştir; doğru değildir, kullanıcı düzeltebilir.\n// [marka, ad, aile, niş, yoğunluk, durumlar, unisex, nota-profili(0=yok→tahmin), [üst,kalp,alt] notalar]\n// Nota verisi: Parfumo (TidyTuesday 2024-12-10 derlemesi, Kaggle/Olga G. Miufana), yalnızca kişisel ve ticari olmayan kullanım.\nexport default '+json.dumps(rows,ensure_ascii=False,separators=(',',':'))+';\n'
+CUR={}
+if os.path.exists('tools/catalog-notes-curated.json'):
+    for cid,nt in json.load(open('tools/catalog-notes-curated.json',encoding='utf-8')).items():
+        pr=profile(nt['accords'],nt['top'],nt['heart'],nt['base'])
+        if pr: CUR[cid]=[pr,[nt['top'],nt['heart'],nt['base']] if (nt['top'] or nt['heart'] or nt['base']) else 0]
+curjs='export const CURATED_NOTES = '+json.dumps(CUR,ensure_ascii=False,separators=(',',':'))+';\n'
+js='// OTOMATİK ÜRETİLİR (tools/make-catalog.py). Kaynak: Beymen, Sephora TR, Boyner erkek/unisex parfüm listeleri (yalnızca marka+ad+konsantrasyon).\n// Aile/yoğunluk/durum değerleri addan ve konsantrasyondan TAHMİN edilmiştir; doğru değildir, kullanıcı düzeltebilir.\n// [marka, ad, aile, niş, yoğunluk, durumlar, unisex, nota-profili(0=yok→tahmin), [üst,kalp,alt] notalar]\n// Nota verisi: Parfumo (TidyTuesday 2024-12-10 derlemesi, Kaggle/Olga G. Miufana), yalnızca kişisel ve ticari olmayan kullanım.\nexport default '+json.dumps(rows,ensure_ascii=False,separators=(',',':'))+';\n'+curjs
 open('web/js/catalog-data.js','w',encoding='utf-8').write(js)
 print(len(L),len(keep),len(js),'gerçek nota:',real)
 import collections;print(collections.Counter(r[2] for r in rows),sum(r[3] for r in rows))

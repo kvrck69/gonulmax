@@ -1,4 +1,4 @@
-import DATA from './catalog-data.js';
+import DATA, { CURATED_NOTES } from './catalog-data.js';
 
 // Başlangıç kataloğu: elle derlenmiş, YAKLAŞIK değerler. Kazıma yok, dış veri tabanından kopya yok.
 // Mevsim/gündüz-gece/yoğunluk/durum değerleri aile şablonundan ve tahminden gelir; kullanıcı onayına açıktır.
@@ -155,7 +155,8 @@ for (const row of DATA) {
 }
 
 for (const item of CURATED) {
-  const row = curatedNotes.get(item.id);
+  const manual = CURATED_NOTES[item.id]; // elle onaylı eşleşme, toplu eşleşmeye göre öncelikli
+  const row = manual ? [0, 0, 0, 0, 0, 0, 0, manual[0], manual[1]] : curatedNotes.get(item.id);
   if (row) Object.assign(item, { notes: row[7], pyramid: row[8] || null });
   item.estimated = !row;
 }
