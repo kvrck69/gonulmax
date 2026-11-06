@@ -38,3 +38,11 @@ test('öneri: sahip olunanı önermez, en güçlüyü öne alır', () => {
   const s = suggestFor('leather', cat, new Set(['a']));
   assert.deepEqual(s.map((x) => x.id), ['c']);
 });
+
+test('öneri: gerçek nota verisi olan, tahminliden önce gelir', () => {
+  const cat = [
+    { id: 'est', family: 'leather' as const, name: 'Leather Noir' },
+    { id: 'real', family: 'woody' as const, name: 'X', notes: { leather: 0.7 } },
+  ];
+  assert.deepEqual(suggestFor('leather', cat, new Set()).map((x) => x.id), ['real', 'est']);
+});

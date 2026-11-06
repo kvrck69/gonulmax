@@ -135,17 +135,29 @@ function build([brand, name, family, niche, intensity, codes]) {
 const CURATED = RAW.map(build);
 const curatedIds = new Set(CURATED.map((item) => item.id));
 const CONC_TAIL = /\s+(edp|edt|edc|parfum|extrait|elixir|cologne)$/i;
+const CURATED_NOISE = /\b(millesime|eau de parfum|eau de toilette)\b/gi;
 
 // Elle derlenenler önceliklidir; toplu listede aynı parfüm varsa tekrar eklenmez.
 const BULK = [];
+const curatedNotes = new Map(); // elle derlenen parfümlere, aynı parfümün toplu listedeki nota verisi aktarılır
 const usedIds = new Set(curatedIds);
 for (const row of DATA) {
   const item = build(row.slice(0, 6));
-  if (curatedIds.has(slug(`${item.brand} ${item.name.replace(CONC_TAIL, '')}`))) continue;
+  const curatedId = slug(`${item.brand} ${item.name.replace(CONC_TAIL, '').replace(CURATED_NOISE, ' ')}`);
+  if (curatedIds.has(curatedId)) {
+    if (row[7] && !curatedNotes.has(curatedId)) curatedNotes.set(curatedId, row);
+    continue;
+  }
   let id = item.id;
   for (let n = 2; usedIds.has(id); n += 1) id = `${item.id}-${n}`;
   usedIds.add(id);
   BULK.push({ ...item, id, unisex: row[6] === 1, ...(row[7] ? { notes: row[7], pyramid: row[8] || null } : {}), estimated: !row[7] });
+}
+
+for (const item of CURATED) {
+  const row = curatedNotes.get(item.id);
+  if (row) Object.assign(item, { notes: row[7], pyramid: row[8] || null });
+  item.estimated = !row;
 }
 
 export const CATALOG = [...CURATED, ...BULK];

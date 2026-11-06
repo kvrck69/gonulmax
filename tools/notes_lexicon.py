@@ -1,6 +1,24 @@
 # Parfumo accord/nota adlarını koku çarkının 16 eksenine eşler (değerler 0-1). Elle yazılmış sözlük.
 import re
 ACCORD={'Spicy':{'spicy':1},'Woody':{'woody':1},'Sweet':{'oriental':.5},'Fresh':{'citrus':.4,'herbaceous':.25},'Floral':{'floral':1},'Fruity':{'fruity':1},'Citrus':{'citrus':1},'Green':{'green':1},'Oriental':{'oriental':1},'Synthetic':{},'Creamy':{'musk':.3,'oriental':.2},'Powdery':{'floral':.3,'aldehydic':.2,'musk':.3},'Gourmand':{'oriental':.5,'fruity':.2},'Resinous':{'oriental':.7,'conifer':.2},'Smoky':{'leather':.6,'tobacco':.2},'Leathery':{'leather':1},'Aquatic':{'citrus':.3,'musk':.25,'herbaceous':.2},'Earthy':{'chypre':.6,'green':.3,'woody':.3},'Animal':{'leather':.5,'musk':.3},'Fougère':{'fougere':1,'lavender':.4},'Chypre':{'chypre':1}}
+
+# Fragrantica akor sözlüğü (küçük harf)
+ACCORD.update({
+ 'woody':{'woody':1},'citrus':{'citrus':1},'aromatic':{'herbaceous':.6,'fougere':.6,'lavender':.2},'sweet':{'oriental':.5},'fruity':{'fruity':1},
+ 'powdery':{'floral':.3,'aldehydic':.2,'musk':.3},'floral':{'floral':1},'warm spicy':{'spicy':1,'oriental':.2},'white floral':{'floral':1},
+ 'fresh spicy':{'spicy':.8,'citrus':.2,'herbaceous':.2},'amber':{'oriental':1},'vanilla':{'oriental':.8},'musky':{'musk':1},'green':{'green':1},
+ 'rose':{'floral':.9},'fresh':{'citrus':.4,'herbaceous':.25},'patchouli':{'chypre':.6,'woody':.5},'leather':{'leather':1},
+ 'earthy':{'chypre':.5,'green':.3,'woody':.3},'aquatic':{'citrus':.3,'musk':.25,'herbaceous':.2},'lavender':{'lavender':1,'fougere':.5},
+ 'oud':{'oriental':.6,'woody':.6},'iris':{'floral':.6,'musk':.2},'yellow floral':{'floral':1},'soft spicy':{'spicy':.5},'balsamic':{'oriental':.6},
+ 'tropical':{'fruity':1},'violet':{'floral':.8},'ozonic':{'citrus':.3,'aldehydic':.3},'animalic':{'leather':.5,'musk':.3},'tuberose':{'floral':1},
+ 'marine':{'citrus':.3,'musk':.25,'herbaceous':.2},'herbal':{'herbaceous':1},'caramel':{'oriental':.7},'cinnamon':{'spicy':1,'oriental':.3},
+ 'smoky':{'leather':.6,'tobacco':.2},'mossy':{'chypre':1},'almond':{'oriental':.5},'tobacco':{'tobacco':1},'coconut':{'fruity':.6,'oriental':.3},
+ 'lactonic':{'musk':.3},'honey':{'oriental':.6},'aldehydic':{'aldehydic':1},'nutty':{'oriental':.3},'cherry':{'fruity':1},'cacao':{'oriental':.4},
+ 'chocolate':{'oriental':.4},'coffee':{'tobacco':.3,'oriental':.3},'salty':{'musk':.2},'anis':{'spicy':.6},'rum':{'tobacco':.3,'spicy':.3},
+ 'metallic':{'aldehydic':.4},'whiskey':{'tobacco':.4,'spicy':.2},'conifer':{'conifer':1},'camphor':{'herbaceous':.5,'conifer':.4},
+ 'beeswax':{'oriental':.3},'soapy':{'aldehydic':.4,'musk':.3},'terpenic':{'conifer':.8},'oriental':{'oriental':1},'spicy':{'spicy':1},
+ 'cannabis':{'green':.5,'herbaceous':.4},'sand':{'musk':.2},'gourmand':{'oriental':.5,'fruity':.2},'creamy':{'musk':.3,'oriental':.2},
+})
 NOTE=[
 (r'bergamot|lemon|lime\b|mandarin|tangerine|grapefruit|yuzu|citron|pomelo|bitter orange|blood orange|\borange\b(?! blossom)|petitgrain|citrus|zest|clementine',{'citrus':1}),
 (r'neroli',{'citrus':.5,'floral':.6}),

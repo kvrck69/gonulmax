@@ -107,9 +107,10 @@ export function suggestFor<T extends Pick<Fragrance, 'id' | 'family' | 'name'> &
 ): T[] {
   return catalog
     .filter((f) => !ownedIds.has(f.id))
-    .map((f) => ({ f, s: noteProfile(f)[axis] }))
+    .map((f) => ({ f, s: noteProfile(f)[axis], real: f.notes ? 1 : 0 }))
     .filter((x) => x.s >= 0.6)
-    .sort((a, b) => b.s - a.s || a.f.id.localeCompare(b.f.id))
+    // Gerçek nota verisi olan parfümler önce: tahmini olanlar yalnızca yeterli gerçek veri yoksa önerilir.
+    .sort((a, b) => b.real - a.real || b.s - a.s || a.f.id.localeCompare(b.f.id))
     .slice(0, limit)
     .map((x) => x.f);
 }

@@ -349,7 +349,7 @@ function card(f) {
   return h(
     'div',
     { class: 'card frag', 'data-testid': 'frag-card', 'data-id': f.id },
-    h('div', { class: 'grow' }, fragranceHeader(f), chips(f, isCustom ? h('span', { class: 'chip' }, t('col.custom.badge')) : null), f.pyramid ? h('p', { class: 'muted small-note', 'data-testid': 'notes' }, `${t('card.notes')}: ${f.pyramid.flat().slice(0, 9).join(' · ')}`) : null),
+    h('div', { class: 'grow' }, fragranceHeader(f), chips(f, isCustom ? h('span', { class: 'chip' }, t('col.custom.badge')) : null), f.pyramid ? h('p', { class: 'muted small-note', 'data-testid': 'notes' }, `${t('card.notes')}: ${f.pyramid.flat().slice(0, 9).join(' · ')}`) : f.estimated ? h('p', { class: 'muted small-note', 'data-testid': 'notes-est' }, t('card.estimated')) : null),
     h(
       'div',
       { class: 'actions' },

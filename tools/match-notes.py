@@ -16,9 +16,10 @@ def clean_pname(name,brand):
     b=re.sub(r'\s*/.*','',brand)
     s=re.sub(re.escape(b),' ',s,flags=re.I)
     return nb(s)
-STOP={'pour','homme','for','men','man','him','eau','de','du','le','la','les','the','of','and','by','edition','extrait','parfum','edp','edt','edc','cologne','perfume','spray','the'}
+STOP={'pour','homme','for','men','man','him','du','le','la','les','the','of','and','by','edition','extrait','parfum','edp','edt','edc','cologne','perfume','spray','the'}
 def words(name,brand):
     bw=set(re.findall(r'[a-z0-9]+',unicodedata.normalize('NFKD',re.sub(r'\s*/.*','',brand).lower().replace('ı','i')).encode('ascii','ignore').decode()))|{'emporio'}
+    name=re.sub(r'(?i)\beau[\s-]+de[\s-]+(parfum|toilette|cologne)\b',' \\1 ',name)
     s=unicodedata.normalize('NFKD',name.lower().replace('ı','i').replace('\u00b0',' ')).encode('ascii','ignore').decode()
     s=re.sub(r'\b(19|20)\d\d\b',' ',s)
     return tuple(sorted(w for w in re.findall(r'[a-z0-9]+',s) if w not in bw and w not in STOP))

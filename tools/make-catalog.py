@@ -36,11 +36,24 @@ def fixbrand(b):
     return b.title() if b.isupper() and len(b)>3 else b
 occ={'citrus':'ocs','aquatic':'ocs','green':'oc','aromatic':'ocd','floral':'ocdf','woody':'ocdf','chypre':'dnf','leather':'dn','oriental':'dnf','gourmand':'dn'}
 NOTES=json.load(open('tools/catalog-notes.json',encoding='utf-8')) if os.path.exists('tools/catalog-notes.json') else {}
+FRA=json.load(open('tools/catalog-notes-fra.json',encoding='utf-8')) if os.path.exists('tools/catalog-notes-fra.json') else {}
+# Fragrantica derlemesi (üst/kalp/alt piramidi her kayıtta var) önceliklidir; yoksa Parfumo.
+NOTES={**NOTES,**FRA}
 AX2FAM={'citrus':'citrus','floral':'floral','aldehydic':'floral','oriental':'oriental','lavender':'aromatic','fougere':'aromatic','fruity':'floral','conifer':'green','chypre':'chypre','herbaceous':'aromatic','green':'green','spicy':'oriental','woody':'woody','tobacco':'leather','leather':'leather','musk':'floral'}
+def clean_name(n):
+    n=re.split(r'\s*\\?\|',n)[0]
+    m=re.match(r'^Fragrance\s*-\s*-\s*(.+)$',n)
+    if m: n=m.group(1)
+    had=bool(re.search(r'notes|bottle',n,re.I))
+    if ' - ' in n and re.search(r'notes|bottle|Doğal|Genderless|şişe|renkli',n,re.I): n=n.split(' - ')[0]
+    n=re.sub(r"\s+men's fragrance\b.*$",'',n,flags=re.I)
+    n=re.sub(r'\s+alcohol-free fragrance\b.*$','',n,flags=re.I)
+    if had: n=re.sub(r'\s+for men\b.*$','',n,flags=re.I)
+    return re.sub(r'\s+',' ',n).strip()
 rows=[]
 real=0
 for v in keep:
-    b=fixbrand(v['brand']);n=v['name'].strip()
+    b=fixbrand(v['brand']);n=clean_name(v['name'].strip())
     if v['conc'] and v['conc']!='Other' and not re.search(r'\b'+re.escape(v['conc'])+r'\b',n,re.I): n=f"{n} {v['conc']}"
     nt=NOTES.get(f"{v['brand']}|{v['name']}|{v['conc']}")
     f=fam(v);i=INT[v['conc']]
