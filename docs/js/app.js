@@ -3,6 +3,7 @@ import { CATALOG, slug } from './catalog.js';
 import { dailyPicks } from './core/dailyPick.js';
 import { formatIsoDate, parseIsoDate } from './core/dates.js';
 import { dayPartOf, localParts, seasonOf } from './core/season.js';
+import { initHearts, heartsEnabled, setHearts } from './hearts.js';
 import { NOTE_AXES, noteRadar, suggestFor } from './core/noteProfile.js';
 import { scentScore } from './core/scentScore.js';
 import { wearCountsByDate, wearStreak } from './core/streak.js';
@@ -841,6 +842,13 @@ function viewProfile() {
     h('div', { class: 'card' }, h('h2', null, t('profile.install')), h('p', null, installText)),
     h('div', { class: 'card' }, h('h2', null, t('profile.about')), h('p', { class: 'muted' }, `${APP_NAME} · ${t('profile.about.text')}`)),
   );
+  wrap.append(
+    h(
+      'div',
+      { class: 'card' },
+      h('label', { class: 'check' }, h('input', { type: 'checkbox', checked: heartsEnabled() ? 'checked' : null, 'data-testid': 'hearts-toggle', onchange: (e) => setHearts(e.target.checked) }), h('span', null, t('profile.hearts'))),
+    ),
+  );
   return wrap;
 }
 
@@ -899,6 +907,7 @@ function render() {
 
 function start() {
   load();
+  initHearts();
   setLocale(getState().profile.locale || detectLocale());
   subscribe(() => render());
   window.addEventListener('hashchange', () => { window.scrollTo(0, 0); render(); });

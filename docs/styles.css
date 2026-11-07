@@ -183,3 +183,27 @@ dialog.sheet::backdrop { background: rgba(0, 0, 0, 0.6); }
 .radar-label.gap{font-weight:700;fill:var(--danger,#d9534f)}
 .gap-row{margin:.5rem 0}
 .small-note{font-size:.78rem;margin:.35rem 0 0}
+
+/* Arka plan kalpleri (js/hearts.js) */
+.hearts { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; contain: strict; }
+#app { position: relative; z-index: 1; }
+.heart {
+  position: absolute; left: var(--x); bottom: -60px; width: var(--s); height: auto;
+  fill: var(--accent); opacity: 0; will-change: transform, opacity;
+  animation: heart-rise var(--d) linear var(--delay) infinite;
+}
+.heart text { fill: var(--bg); font: 700 13px system-ui, sans-serif; }
+@keyframes heart-rise {
+  0% { transform: translate3d(0, 0, 0) rotate(-8deg); opacity: 0; }
+  10% { opacity: var(--o); }
+  50% { transform: translate3d(var(--sway), -55vh, 0) rotate(8deg); }
+  90% { opacity: var(--o); }
+  100% { transform: translate3d(0, -115vh, 0) rotate(-8deg); opacity: 0; }
+}
+.fx-paused .heart { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .heart { animation: none; opacity: var(--o); bottom: auto; top: calc(10% + var(--x) * 0.8); }
+}
+
+/* Kartlar hafif saydam: arkadaki kalpler belli belirsiz görünür */
+@supports (background: color-mix(in srgb, red 50%, transparent)) { .card { background: color-mix(in srgb, var(--surface) 88%, transparent); } .card.hero { background: color-mix(in srgb, var(--surface-2) 90%, transparent); } }

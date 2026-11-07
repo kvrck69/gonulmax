@@ -1,6 +1,6 @@
 // Çevrimdışı çalışma: uygulama dosyalarını önbelleğe alır. Hava durumu gibi dış istekler önbelleğe alınmaz.
 // Dosyalardan biri değişince CACHE adındaki sürümü artır; eski önbellek otomatik silinir.
-const CACHE = 'gonulmax-v8';
+const CACHE = 'gonulmax-v9';
 const ASSETS = [
   './',
   'index.html',
@@ -13,6 +13,7 @@ const ASSETS = [
   'js/app.js',
   'js/catalog.js',
   'js/catalog-data.js',
+  'js/hearts.js',
   'js/i18n.js',
   'js/store.js',
   'js/weather.js',
